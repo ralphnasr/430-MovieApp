@@ -1,0 +1,21 @@
+{% extends "videos/base.html" %}
+{% block title %}Videos{% endblock %}
+{% block content %}
+<h1>Videos</h1>
+<table>
+  <thead><tr><th>Title</th><th>Director</th><th>Genre</th><th>Year</th><th></th></tr></thead>
+  <tbody>
+  {% for v in videos %}
+    <tr>
+      <td><a href="{% url 'video-detail' v.pk %}">{{ v.MovieTitle }}</a></td>
+      <td>{{ v.DirectorName }}</td>
+      <td>{{ v.MovieGenre }}</td>
+      <td>{{ v.ReleaseYear }}</td>
+      <td><a href="{% url 'video-update' v.pk %}">Edit</a></td>
+    </tr>
+  {% empty %}
+    <tr><td colspan="5">No videos yet. <a href="{% url 'video-create' %}">Create one</a>.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

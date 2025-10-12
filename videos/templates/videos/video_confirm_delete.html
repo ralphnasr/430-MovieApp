@@ -1,0 +1,11 @@
+{% extends "videos/base.html" %}
+{% block title %}Delete {{ video.MovieTitle }}{% endblock %}
+{% block content %}
+<h1>Delete</h1>
+<p>Are you sure you want to delete <strong>{{ video.MovieTitle }}</strong>?</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Yes, delete</button>
+  <a href="{% url 'video-detail' video.pk %}">No, go back</a>
+</form>
+{% endblock %}

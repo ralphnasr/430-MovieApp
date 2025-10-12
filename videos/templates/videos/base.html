@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{% block title %}Video Store{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body{font-family:system-ui,Arial,sans-serif;max-width:900px;margin:24px auto;padding:0 16px}
+    header{margin:16px 0}
+    a.button{padding:8px 12px;border:1px solid #ccc;border-radius:8px;text-decoration:none}
+    form div{margin:8px 0}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:8px;border-bottom:1px solid #eee;text-align:left}
+  </style>
+</head>
+<body>
+  <header>
+    <a href="{% url 'video-list' %}">Home</a> |
+    <a class="button" href="{% url 'video-create' %}">+ Add Video</a>
+  </header>
+  {% block content %}{% endblock %}
+</body>
+</html>
