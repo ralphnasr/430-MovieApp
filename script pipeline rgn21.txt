@@ -1,0 +1,33 @@
+pipeline {
+  agent any
+  stages {
+    stage('Checkout') {
+      steps {
+        cleanWs()
+        git url: 'https://github.com/ralphnasr/430-MovieApp.git', branch: 'main'
+      }
+    }
+    stage('Build Docker Image') {
+      steps {
+        withEnv(['DOCKER_HOST=tcp://host.docker.internal:2375']) {
+          sh 'docker build -t my-django-app:latest .'
+        }
+      }
+    }
+    stage('Stop Old Container') {
+      steps {
+        withEnv(['DOCKER_HOST=tcp://host.docker.internal:2375']) {
+          sh 'docker stop my-django-app || true'
+          sh 'docker rm my-django-app || true'
+        }
+      }
+    }
+    stage('Run New Container') {
+      steps {
+        withEnv(['DOCKER_HOST=tcp://host.docker.internal:2375']) {
+          sh 'docker run -d --name my-django-app -p 8000:8000 my-django-app:latest'
+        }
+      }
+    }
+  }
+}
